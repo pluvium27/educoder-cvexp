@@ -1,0 +1,175 @@
+{
+  "release": "student-v1.6.1",
+  "date": "2026-10-12",
+  "data_version": "qd8-bitmap-v1.0",
+  "entry": "开始.html",
+  "notebook": "AI你画我猜.ipynb",
+  "files": [
+    {
+      "path": "AI你画我猜.ipynb",
+      "bytes": 38747,
+      "sha256": "ba6dc7823ba5bc8dbada98892d5002f6e17a5079550b0b4244cd0023186599ca"
+    },
+    {
+      "path": "my_images/把自己的PNG或照片放在这里.txt",
+      "bytes": 279,
+      "sha256": "970f8c44b1227ba06e070ae08dfefe2b33efc313d82bcc185cbfc39c61c3cf51"
+    },
+    {
+      "path": "开始.html",
+      "bytes": 16215,
+      "sha256": "7dc3629dd4d0140ac51dd98264d04d3e76a03649a9c28f4edd9b7e2cbf8424e0"
+    },
+    {
+      "path": "报告模板.docx",
+      "bytes": 31517,
+      "sha256": "9487dec9585b3b84e87ac72eddde29d8f64e005e557a0742cb9662d4b99ab87a"
+    },
+    {
+      "path": "画板.html",
+      "bytes": 5199,
+      "sha256": "2e8848c53a775eeab9777892db80fdc1160011caefcafb873d175e5883237b91"
+    },
+    {
+      "path": "资源/LICENSE_CODE.txt",
+      "bytes": 1284,
+      "sha256": "f4612dcd94f6d9407ed9a0e7b42d968c53f6b1351bc7d01d03ed149afb88f4f6"
+    },
+    {
+      "path": "资源/data/challenge_occlusion.npz",
+      "bytes": 205317,
+      "sha256": "29855b095b25d4aba8cafb4b095ee6c40cee05bd63b8337e7eef083f65226812"
+    },
+    {
+      "path": "资源/data/challenge_original.npz",
+      "bytes": 216096,
+      "sha256": "08899c3ead2a7f64311def75dba6417a8ac100e08fb08d5cf4cc5e8e8e523a13"
+    },
+    {
+      "path": "资源/data/challenge_shift.npz",
+      "bytes": 209654,
+      "sha256": "d2b9535a44c41c916cb1f25952f98a097fb16f404479d9d08070c8d4d3d603d2"
+    },
+    {
+      "path": "资源/data/challenge_thick.npz",
+      "bytes": 210384,
+      "sha256": "2327d25b75935c7cdc14c19114816e17351e94a6f75ad29c002f135b194ee336"
+    },
+    {
+      "path": "资源/data/index_checksum.json",
+      "bytes": 94,
+      "sha256": "b08654d196132940718778db30f8a195fd1c382f05efafccd4319428161970bd"
+    },
+    {
+      "path": "资源/data/manifest.json",
+      "bytes": 16539,
+      "sha256": "e685e9149789b81cf816d0ed99bfad60070e3c0bcbe5226b1162ec82398d5d5c"
+    },
+    {
+      "path": "资源/data/sample_indices.csv",
+      "bytes": 3051176,
+      "sha256": "f720a0ec4db680e5eceb619cfca5f6beaa5267b93cc1c22da7f0045bc0be7b12"
+    },
+    {
+      "path": "资源/data/train_basic.npz",
+      "bytes": 809463,
+      "sha256": "ece9da8c2d6d09e86dac934bbec465f604f0615a1ba7dd690ecb8dd0a1a210ac"
+    },
+    {
+      "path": "资源/data/train_extended.npz",
+      "bytes": 8034085,
+      "sha256": "4caaf9a2d60723917579cfdee9c1b8eace6d9efd1155dc40c3d307769a2d7fdc"
+    },
+    {
+      "path": "资源/data/val_basic.npz",
+      "bytes": 536604,
+      "sha256": "ca8f4e697bd4f5ad08476aef501c3c797b6364d8c97209500a6205f7f1cb41db"
+    },
+    {
+      "path": "资源/doodlelab/__init__.py",
+      "bytes": 332,
+      "sha256": "0510815e30e7c57d80582f1bdbccff22b7a4591e4725bcc8479cf9f8ea540f05"
+    },
+    {
+      "path": "资源/doodlelab/core.py",
+      "bytes": 19634,
+      "sha256": "c2e40bee502e1dae9502edf38a94a5fa6b7e68428114f0f28b94ea4a1ec3bb89"
+    },
+    {
+      "path": "资源/doodlelab/custom_model.py",
+      "bytes": 1179,
+      "sha256": "a0922c8a2fe279a02e637794b2a5d7b8453e29563eb16992c3c6478fb9afcd5a"
+    },
+    {
+      "path": "资源/doodlelab/panels.py",
+      "bytes": 10827,
+      "sha256": "42397c62fedf92789bb88998fca2428a483b3b71b14a511b40bbfc0b8fa254ae"
+    },
+    {
+      "path": "资源/doodlelab/plots.py",
+      "bytes": 2835,
+      "sha256": "a201db3e356628abb18278adfdcfbc3bbead78e0c33733e33d686ec10196f829"
+    },
+    {
+      "path": "资源/doodlelab/records.py",
+      "bytes": 11502,
+      "sha256": "d7f5337ac4f23248b1c4ee0ec3d111fa465db3ab2aacea46826ae4d0f3c1e480"
+    },
+    {
+      "path": "资源/doodlelab/studio.py",
+      "bytes": 18668,
+      "sha256": "6125ce1221250d96a993e573c95f6696b54588f0982d1d2b2d9c3c826b5f1947"
+    },
+    {
+      "path": "资源/examples/browser_board_transparent.png",
+      "bytes": 21135,
+      "sha256": "ff7485307770f0f277977cdd0c8acbdb9d2ea897e70e5fdf1f046e7d2180f0ee"
+    },
+    {
+      "path": "资源/examples/browser_board_white.png",
+      "bytes": 21109,
+      "sha256": "7f70e91eb77129c2fdde162986215ba5bfcc8a90d87cd4dd046380205b882a7b"
+    },
+    {
+      "path": "资源/examples/synthetic_black_apple.png",
+      "bytes": 2363,
+      "sha256": "ff14edcf5367c11cf432b65519934418005b549eed440a81ade1196cd6e41d13"
+    },
+    {
+      "path": "资源/examples/synthetic_paper_apple.png",
+      "bytes": 7271,
+      "sha256": "8bb3497cde6f86410774bf7ed7d0ed6a1040a0b911317477611d0cfcf6fd9dbe"
+    },
+    {
+      "path": "资源/examples/synthetic_transparent_apple.png",
+      "bytes": 2937,
+      "sha256": "0bd14d7e2c6e067b09c740bef4d1082dbdf924cd614085fd87d819eb631e3109"
+    },
+    {
+      "path": "资源/examples/synthetic_white_apple.png",
+      "bytes": 2767,
+      "sha256": "df856af60293b6a62affd0290f19a5835941fa06704bc2d5a6515f234d8e94b3"
+    },
+    {
+      "path": "资源/examples/样例来源.md",
+      "bytes": 744,
+      "sha256": "00acc7db404affb9e7268e9ee9e5a99ac623569b64295916e80183efde102e3d"
+    },
+    {
+      "path": "资源/requirements-common.txt",
+      "bytes": 303,
+      "sha256": "809f0a45610846e96864116c81eaaf1b58d34d7c4bba5da998fdd59d90f52ae6"
+    },
+    {
+      "path": "资源/任务说明.md",
+      "bytes": 8718,
+      "sha256": "ef4c5337a0a85ee8abaa58ef8935ac4eec59d75f98aaa548062f4afa5db6409b"
+    },
+    {
+      "path": "资源/使用说明.html",
+      "bytes": 31512,
+      "sha256": "c6c5cd93e9bd60ecec2bdc594b08a274b5863e01b511aa8b0f268a6621981e19"
+    }
+  ],
+  "note": "最终核验：资源路径与接口示例修正；六项根目录；Word报告为主、中文TXT附件；数据不变。"
+}

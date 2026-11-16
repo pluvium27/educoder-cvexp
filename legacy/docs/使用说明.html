@@ -1,0 +1,255 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI你画我猜 · 实验指南</title><style>body{font:17px/1.8 system-ui,-apple-system,"Microsoft YaHei",sans-serif;color:#23374a;background:#fafcfd;max-width:1050px;margin:35px auto;padding:0 25px}h1{font-size:30px;line-height:1.4}h2{margin-top:35px;scroll-margin-top:20px}table{border-collapse:collapse;display:block;overflow-x:auto;font-size:15px}td,th{border:1px solid #cbd8df;padding:8px 12px;text-align:left}th{background:#edf4f7}pre{background:#edf3f6;padding:16px;overflow:auto;line-height:1.55}a{color:#12688f}code{font-size:90%}nav{padding:14px 18px;background:#eaf4f8;border-radius:10px}details{padding:12px 16px;background:white;border:1px solid #d9e4eb;border-radius:8px;margin:18px 0}summary{cursor:pointer;font-weight:600}img{max-width:100%}.note{padding:13px 18px;border-left:4px solid #31849e;background:#eef7fa}footer{font-size:14px;color:#607080;margin-top:40px} .route{background:#edf7f1;border-left:4px solid #3c8763;padding:12px 18px}section{margin-bottom:26px}h1{margin-bottom:16px}details summary{padding:3px 0}nav a{display:inline-block;margin:3px 4px}.subtitle{color:#526b7c}pre{white-space:pre-wrap;overflow-wrap:anywhere;padding-top:38px;position:relative;font-size:15px}.copy-code{position:absolute;right:8px;top:6px;font:13px system-ui;padding:3px 10px;border:1px solid #b8ccd4;border-radius:5px;background:white;color:#12688f;cursor:pointer}.page-nav{display:flex;gap:24px;align-items:center}.page-nav [aria-current="page"]{font-weight:700;color:#23374a;text-decoration:none}.toc{margin:22px 0;padding:14px 18px;border:1px solid #d9e4eb;border-radius:8px;background:white}.toc p{font-size:14px;color:#607080;margin:0 0 5px}.toc a{display:inline-block;margin:3px 12px 3px 0}</style></head><body><h1>AI你画我猜 · 实验指南</h1>
+<nav class="page-nav" aria-label="页面导航"><a href="../开始.html">作业说明</a><a href="使用说明.html" aria-current="page">实验指南</a></nav><p>本页介绍环境配置、实验资源、数据调用与记录方法。作业任务、报告模板及提交要求见<a href="../开始.html">作业说明</a>。</p><div class="toc" role="navigation" aria-label="实验指南页内目录"><p>本页目录 · 实验指南</p><a href="#run">环境配置与运行</a> · <a href="#tools">实验资源</a> · <a href="#data">数据说明</a> · <a href="#logs">实验记录与AI辅助</a> · <a href="#faq">常见问题</a> · <a href="#api">函数接口（选读）</a></div>
+<section id="run"><h2>环境配置与运行</h2>
+<p>本页适用于已经安装Anaconda的同学，无需具备Python或Jupyter使用经验。首次使用时，需要联网建立一个名为<code>ai-doodle</code>的作业环境；安装完成后，数据加载、训练和图片识别可以在断开外网的情况下运行。普通电脑CPU即可完成基础路线。</p>
+<p class="route"><b>首次使用：</b>解压材料 → 安装作业环境 → 点击打开Notebook → 运行。<br><b>以后使用：</b>在Navigator选择<code>ai-doodle</code> → 点击启动Jupyter → 打开同一个Notebook。</p>
+<h3>1. 完整解压作业包</h3>
+<p>Windows：右键ZIP，选择“全部解压”；Mac：双击ZIP解压。建议将解压出的“AI你画我猜”文件夹放到个人“文档 / Documents”目录，方便稍后在Jupyter里找到。</p>
+<p>打开该文件夹，应同时看到<code>开始.html</code>、<code>AI你画我猜.ipynb</code>、<code>报告模板.docx</code>和<code>资源</code>。完整保留这些文件，不在压缩包预览中运行，也不单独移动Notebook。</p>
+<h3>2. 打开安装命令窗口</h3>
+<ol><li>打开<b>Anaconda Navigator</b>：Windows可在开始菜单搜索；Mac可在“应用程序”或启动台中打开。</li>
+<li>点击左侧<b>Environments（环境）</b>，选中<code>base (root)</code>。</li>
+<li>点击环境名称右侧的三角形或播放按钮，选择<b>Open Terminal（打开终端）</b>。后续安装命令在该窗口执行。</li></ol>
+<p>若Windows开始菜单中有<b>Anaconda Prompt</b>，也可直接打开它。下面的命令在该窗口执行，不粘贴到Notebook或普通聊天框中。</p>
+<h3>3. 创建独立作业环境（首次使用做一次）</h3>
+<p>点击代码框右上的“选中代码”，按Ctrl + C（Mac为Command + C）复制，再粘贴到命令窗口，按回车。该命令安装Python、pip和Jupyter；末尾的软件源地址用于从国内镜像获取安装文件，不需要修改电脑的全局软件源设置。</p>
+<pre><code>conda create -n ai-doodle python=3.12 pip notebook --override-channels -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main</code></pre>
+<p>出现<code>Proceed ([y]/n)?</code>时，输入<code>y</code>并回车。等待下载与安装结束，命令窗口重新出现输入提示后，再执行：</p>
+<pre><code>conda activate ai-doodle</code></pre>
+<p>看到提示行前方的<code>(ai-doodle)</code>，表示已进入作业环境。接下来的依赖会装在这个环境中。若提示同名环境已存在，直接执行激活命令，再完成下一步即可。</p>
+<h3>4. 安装作业依赖</h3>
+<p><b>先让命令窗口进入解压后的文件夹：</b>这样下一条命令才能找到<code>资源/requirements-common.txt</code>。它是一份软件清单，无需编辑。</p>
+<details open><summary>Windows：复制文件夹路径</summary>
+<ol><li>在文件资源管理器中打开“AI你画我猜”文件夹，点击地址栏并复制完整路径。</li><li>在命令窗口输入<code>cd /d </code>，在后面放入带英文双引号的实际路径，再回车。例如：</li></ol>
+<pre><code>cd /d "C:\Users\登录用户名\Documents\AI你画我猜"</code></pre>
+<p>引号内为路径示例，应替换为实际复制的路径；如果解压在其他盘符，也使用实际路径。</p></details>
+<details><summary>Mac：拖入文件夹路径</summary><p>在命令窗口输入<code>cd </code>（cd后有一个空格），把解压出的“AI你画我猜”文件夹从访达拖到命令窗口，再按回车。</p></details>
+<p><b>安装PyTorch：</b>仅执行与电脑系统对应的一组命令。Windows使用CPU版本；Mac命令适用于Apple芯片（M系列）的Mac。</p>
+<details open><summary>64位Windows（常见Intel/AMD电脑）</summary>
+<pre><code>python -m pip install "torch==2.7.0+cpu" --index-url https://mirror.sjtu.edu.cn/pytorch-wheels/cpu/ --extra-index-url https://pypi.tuna.tsinghua.edu.cn/simple</code></pre></details>
+<details><summary>Apple芯片Mac（M1、M2、M3等）</summary>
+<p>可从苹果菜单“关于本机”查看芯片。Anaconda应安装Apple芯片对应的版本。</p>
+<pre><code>python -m pip install "torch==2.7.0" -i https://pypi.tuna.tsinghua.edu.cn/simple</code></pre></details>
+<p>PyTorch安装完成后，两种系统都执行下面一行，安装其余依赖：</p>
+<pre><code>python -m pip install -r 资源/requirements-common.txt -i https://pypi.tuna.tsinghua.edu.cn/simple</code></pre>
+<p>每次粘贴一条完整命令，等该条结束后再执行下一条。下载时进度可能暂停，请等待；若出现<code>ERROR</code>或<code>failed</code>，先按下方常见问题定位，应完成错误处理后再执行后续步骤。</p>
+<p>最后执行一次检查：</p>
+<pre><code>python -c "import torch, numpy, PIL, matplotlib, notebook, ipywidgets; print('安装检查通过，PyTorch版本：', torch.__version__)"</code></pre>
+<p>看到“安装检查通过”且没有错误，即可关闭安装窗口，回到Navigator。后续操作主要使用鼠标。</p>
+<h3>5. 点击启动Jupyter，打开Notebook</h3>
+<ol><li>回到<b>Anaconda Navigator</b>，必要时关闭后重新打开，使其读取刚安装的环境。</li>
+<li>点击<b>Home（首页）</b>，在上方<b>Applications on</b>下拉框中选择<code>ai-doodle</code>。</li>
+<li>找到<b>Jupyter Notebook</b>卡片，点击<b>Launch（启动）</b>。也可在Environments中选择<code>ai-doodle</code>，点击右侧三角形，选择<b>Open with Jupyter Notebook</b>或<b>Jupyter Notebook</b>。</li>
+<li>浏览器打开Jupyter文件列表后，依次打开材料所在文件夹，再点击<code>AI你画我猜.ipynb</code>。若按第1步放在“文档”，通常从<code>Documents</code>进入；文档由OneDrive管理时，可能需要先进入<code>OneDrive</code>。</li>
+<li>若弹出内核选择框，选择<b>Python 3 (ipykernel)</b>。“内核”指负责运行Python代码的程序；从作业环境启动Jupyter后，通常已默认选好，无需额外注册。</li></ol>
+<p>应打开随包Notebook文件；浏览器页面用于操作，代码在本机执行。Navigator按钮名称可能随版本略有变化，可按上述英文名称寻找。</p>
+<h3>6. 运行初始实验</h3>
+<ol><li>点击Notebook第0部分的短代码单元格，再点击工具栏<b>▶运行</b>；也可按<kbd>Shift + Enter</kbd>。</li>
+<li>看到绿色“涂鸦工作台已启动”后，按Notebook顺序继续。每个代码格运行一次，再使用下方按钮、下拉框或滑块。</li>
+<li>第3部分运行后会训练默认模型；第4部分查看结果，第5部分导入自己的图片；第6部分再开展新的对照。</li>
+<li>需要一次执行默认流程时，可在<b>Kernel（内核）</b>菜单选择<b>Restart Kernel and Run All Cells（重启内核并运行全部）</b>。默认只训练一个MLP；新对照与挑战评价需要点击相应按钮。</li>
+<li>通过<b>File → Save Notebook（文件 → 保存）</b>或工具栏保存按钮保存修改。Mac与Windows也可使用相应的保存快捷键。</li></ol>
+<p>以后再次使用，直接从第5步开始，不必重新安装。修改程序源文件后，通过Kernel菜单重启内核，再从Notebook第0部分开始运行。</p>
+<details><summary>找不到材料目录或Navigator启动失败时：简短备用方法</summary>
+<p>在Navigator的Environments中选择<code>ai-doodle</code>，打开该环境的Terminal。按第4步进入材料文件夹，然后执行：</p><pre><code>python -m notebook</code></pre>
+<p>浏览器会从该文件夹显示文件列表，点击Notebook即可。浏览器未自动出现时，可复制终端显示的<code>http://localhost:...</code>地址到地址栏。运行期间保留这个窗口。</p></details>
+<details><summary>安装范围与软件源说明</summary><p>本页的主要步骤面向64位Windows（Intel/AMD）和Apple芯片Mac。Intel芯片Mac、Windows ARM或其他系统，请先与教师确认安装方案，不套用上面的命令。</p>
+<p>使用的软件源见<a href="https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/">清华Anaconda镜像说明</a>、<a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/">清华Python软件镜像说明</a>和<a href="https://mirrors.sjtug.sjtu.edu.cn/docs/pytorch-wheels">交大PyTorch镜像说明</a>。Navigator点击路径参考<a href="https://www.anaconda.com/docs/legacy/anaconda-navigator/tutorials/manage-environments">Anaconda官方环境操作说明</a>。</p>
+<p>程序已在Apple芯片Mac的CPU环境运行核查；Windows首次安装和Navigator完整点击流程尚未在实体Windows电脑验证。软件源下载失败时，可将错误文字与系统信息提供给教师或AI协助定位；没有联网条件时，需要预先准备与电脑匹配的安装文件。requirements清单本身不包含这些文件。</p></details>
+<p><b>国内云Notebook（可选）：</b>具备可用云环境的小组可上传并完整解压本包，用PyTorch CPU运行，结束前下载提交材料。云端不作为基础作业的前提，本课程未验证具体平台的全流程。</p>
+</section>
+<section id="tools"><h2>实验资源</h2><p><b>教学Notebook：</b><code>AI你画我猜.ipynb</code>是实验操作入口。完成上方环境配置后，通过Jupyter文件列表打开；网页中的<a href="../AI你画我猜.ipynb">Notebook文件链接</a>仅用于获取文件，不会启动训练。</p><p><b>离线画板：</b><a href="../画板.html">打开画板</a>绘制并导出PNG，将图片放入<code>my_images/</code>，通过Notebook第5部分识别。画板属于外部图片输入工具。</p><p><b>课程数据：</b><code>资源/data/</code>已随包提供，Notebook默认加载；来源、划分与调用方式见下方<a href="#data">数据说明</a>。</p></section>
+<section id="data"><h2>数据集：包内已准备好，程序默认会加载</h2>
+<p>涂鸦来自Google发布的<a href="https://github.com/googlecreativelab/quickdraw-dataset">Quick, Draw!公开数据集</a>，由游戏参与者绘制。原数据提供28×28灰度位图；本课程选取八类，检查明显空白或近满图、抽样与去除完全重复图，再划分为下列文件。数据按<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>提供，署名为Google, Inc.与Quick, Draw!贡献者。</p>
+<p>类别和标签固定为：<b>0猫、1兔子、2鸟、3鱼、4苹果、5香蕉、6蛋糕、7甜甜圈</b>。图片统一为黑底亮线。以下课程选定的数据完整放在发布包的<code>资源/data/</code>目录中，无需访问原网站或再次下载。</p>
+<table><thead><tr><th>资源/data中的文件</th><th>数量</th><th>用途</th></tr></thead><tbody>
+<tr><td><code>train_basic.npz</code></td><td>每类300张，共2400张</td><td>默认第一次训练，基础路线使用</td></tr>
+<tr><td><code>train_extended.npz</code></td><td>每类3000张，共24000张</td><td>可选扩展训练，包含基础训练的全部样本</td></tr>
+<tr><td><code>val_basic.npz</code></td><td>每类200张，共1600张</td><td>共同基础验证，观察模型对未学过图片的表现</td></tr>
+<tr><td><code>challenge_original.npz</code></td><td>每类80张，共640张</td><td>另一批独立涂鸦，作为挑战变换的参照</td></tr>
+<tr><td><code>challenge_shift.npz</code><br><code>challenge_thick.npz</code><br><code>challenge_occlusion.npz</code></td><td>每种640张</td><td>同一批挑战原图分别偏移、加粗或遮挡，选读A按类型评价</td></tr>
+</tbody></table>
+<p><code>.npz</code>是保存图片和标签的压缩数据文件，不需要手动解压或用图片软件逐个打开。训练与基础验证的原始来源独立；挑战原图及其变换也没有进入任何训练集。挑战中的变化是合成处理，不是真实照片。</p>
+<h3>数据调用</h3>
+<p><b>基础路线无需改路径或手工加载。</b>Notebook已经配置好：<code>lab = start_lab(root=".")</code>以Notebook所在目录为起点；运行<code>lab.train("第一次训练")</code>时自动使用基础训练和基础验证。第6部分的“训练资料”可选择扩展训练，验证资源仍保持相同。</p>
+<details><summary>选读：需要用代码直接取数据时</summary><pre><code>from doodlelab import load_dataset
+训练数据 = load_dataset("资源/data", "train_basic")
+验证数据 = load_dataset("资源/data", "val_basic")</code></pre>
+<p>返回对象的<code>.x</code>是图片，形状为<code>[图片数, 1, 28, 28]</code>，数值0—1；<code>.y</code>是0—7的类别标签。基础训练可换为<code>"train_extended"</code>；其他划分名与上表文件名相同，去掉<code>.npz</code>后缀。已有工作台也可使用<code>lab.dataset("train_basic")</code>。</p></details>
+<p><code>manifest.json</code>保存类别、划分和来源说明，<code>sample_indices.csv</code>等保存抽样来源记录。一般操作无需修改这些文件；数据版本为<code>qd8-bitmap-v1.0</code>。</p>
+<p class="note">课程数据已随发布包提供，提交时无需重复附上。报告作为主要材料，选定实验的TXT、模型和程序作为附件。</p>
+</section>
+<section id="logs"><h2>实验记录：用文字记录设置与结果</h2>
+<p>每次完成训练，runs内新建一个实验目录，默认只有三个文件：</p><pre>model.pt        模型与必要设置，加载时由程序读取
+实验记录.txt    中文设置、逐轮结果、类别表现与少量错误，可复制给AI
+训练曲线.png    一张小曲线图，可选择放入报告</pre>
+<p>自定义模型另保存一个小源码文件；挑战评价和图片尝试追加到同一TXT，默认不生成逐图JSON、CSV或大图片副本。完整逐图分数仍在当前程序内存中，用于显示错误样例；重新加载模型可以重新评价。</p>
+<p>比较功能还生成runs/实验汇总.txt，适合复制多个实验给DeepSeek等工具。附上自己的研究问题，要求AI核对改变的条件、解释证据、提出核查办法；模型权重和数据文件无需作为文字对话材料上传。文字记录只描述实际运行，不代替小组分析。</p>
+</section>
+<p id="submit" class="note">报告格式、模板与材料整理要求见<a href="../开始.html#submission">作业说明 · 提交要求</a>。</p>
+<section id="faq"><h2>常见问题</h2>
+<p><b>提示找不到requirements-common.txt？</b> 当前命令窗口未进入完整解压的材料文件夹，按安装第4步重新定位。文件名应与包内文件完全相同。</p>
+<p><b>提示No module named torch或其他包？</b> 在Navigator中核对启动Jupyter的环境是ai-doodle；如安装中断，从该环境的Terminal重新完成依赖安装，再重启内核。</p>
+<p><b>Notebook卡片仍显示Install？</b> 先重新打开Navigator并选择ai-doodle。创建环境时已安装Jupyter；仍不能启动时使用第5步后的备用方法。</p><p><b>按钮不出现？</b> 检查ipywidgets及Jupyter组件是否装在实际使用的环境里，重启Jupyter和内核；普通lab.train、lab.predict调用也可完成基础流程。</p>
+<p><b>结果没有提高？</b> 仍可分析本次改动的作用，说明支持和反驳预期的证据，不必反复挑最高成绩。</p><p><b>图片只剩边框或阴影？</b> 查看28×28图，检查裁剪和黑白方向；白纸、深色笔、均匀光照更适合当前处理方法。合成样例不代表任意真实照片效果。</p>
+<p><b>怎样打开已保存的模型？</b> 使用<code>lab.load("runs/实际实验目录")</code>，再查看结果或预测。自定义模型需要对应的模型源码。</p>
+<p><b>保存的Notebook很大？</b> 本地可保留输出便于回看；提交材料中的程序会自动清除输出。报告选关键图，TXT保留实际指标。</p></section>
+<details id="api"><summary>选读：函数接口与配置范围</summary><section><h2>函数接口（选读）</h2>
+<p>以下底层示例在Notebook启动工作台后运行。需要调用某个函数时，先使用<code>from doodlelab import 函数名</code>导入；各示例中的数据和模型变量沿用前面相应示例。Notebook短调用入口是start_lab和lab的方法，封装在资源/doodlelab/studio.py；控件在panels.py，底层函数在core.py，画图在plots.py，模型替换入口在custom_model.py。八类固定映射见manifest.json。公共约定：输入图片是亮线黑底float32 <code>[N,1,28,28]</code>、0—1；标签int64 <code>[N]</code>、0—7；模型输出八维未softmax的logits。不同实验应沿用相同的标签顺序和图片深浅方向。</p>
+<h3>load_dataset</h3>
+<p><code>load_dataset(data_dir: str | Path, split: str=&quot;train_basic&quot;, verify: bool=True) -&gt; DatasetBundle</code></p>
+<p>读取本地npz，不联网；默认SHA256校验、检查uint8原图与整数标签，再除255转float32。split可选train_basic、train_extended、val_basic、challenge_original、challenge_shift、challenge_thick、challenge_occlusion。本包包含扩展训练文件；缺失时请完整重新解压学生包。</p>
+<p>返回属性：x张量 <code>[N,1,28,28]</code>；y张量 <code>[N]</code>；labels为id/en/zh字典列表；meta含版本、划分、校验、数量与预处理；source_index为原npy行号数组 <code>[N]</code>；sample_hash为原图像素SHA256字符串数组 <code>[N]</code>。挑战变换沿用父图hash，变换内容由npz文件hash校验。</p>
+<p>修改项主要是数据目录和训练划分。验证资源不用于训练。示例：</p>
+<pre><code class="language-python">train_data = load_dataset(&quot;资源/data&quot;, &quot;train_basic&quot;)
+val_data = load_dataset(&quot;资源/data&quot;, &quot;val_basic&quot;)
+print(train_data.x.shape, train_data.y.dtype)
+</code></pre>
+<h3>build_model</h3>
+<p><code>build_model(config: dict | None=None, num_classes: int=8) -&gt; torch.nn.Module</code></p>
+<p>按config的model选择mlp或cnn，固定seed后初始化CPU模型。MLP默认784→64→32→8；隐藏层ReLU，可选dropout。CNN默认卷积1→8→16，3×3、padding1，两次2×2池化，接32隐藏单元与分类输出。默认输出shape <code>[B,8]</code>。num_classes沿统一数据使用8，不为已有数据另改。</p>
+<pre><code class="language-python">config = {&quot;model&quot;: &quot;mlp&quot;, &quot;hidden_sizes&quot;: [64,32], &quot;seed&quot;: 20261008}
+model = build_model(config)
+</code></pre>
+<p>未提供的项使用DEFAULT_CONFIG；未知键报错防止参数拼写错误。模型具有doodle_config记录实际结构与参数。修改配置后必须重建模型再训练。自定义模型优先只替换custom_model.py的build_custom_model(params,num_classes)，以model=&quot;custom&quot;、custom_params={...}调用；build_model和load_model自动沿用该函数，不需要另写保存加载流程。输入[B,1,28,28]，输出[B,8] logits；示例及参数范围见Notebook选读C。</p>
+<h3>train_model</h3>
+<p><code>train_model(model: nn.Module, train_data: DatasetBundle, val_data: DatasetBundle, config: dict | None=None, verbose: bool=True) -&gt; (model, result)</code></p>
+<p>默认12轮、lr0.001、batch64、Adam与交叉熵，CPU线程2，float32，num_workers0。只接受train_basic/train_extended作为训练、val_basic作为逐轮监测；检查训练与验证原图hash无交叉。每轮执行backward/step，检查非有限loss/梯度与零梯度，结束后以eval模式重新评价训练和验证，打印一行。</p>
+<p>result字典含完整config、history（每轮epoch、train_loss、train_accuracy、val_loss、val_accuracy、seconds）、seconds（训练+逐轮评价的墙钟秒）、cpu_seconds（进程CPU秒）、参数量、设备、数据版本/校验、环境版本、labels、预处理与时间。CPU秒可大于墙钟秒，因为多线程并行。</p>
+<pre><code class="language-python">model, result = train_model(build_model(config), train_data, val_data, config)
+</code></pre>
+<p>最后一轮模型返回，不自动挑最佳验证轮；再次调用同一model会继续更新，若需开展从头训练的新对照，应先调用build_model建立新模型。可改项见配置表。</p>
+<h3>evaluate_model</h3>
+<p><code>evaluate_model(model: nn.Module, dataset: DatasetBundle, batch_size: int=256) -&gt; dict</code></p>
+<p>无梯度、CPU、按数据原顺序评价，临时eval后恢复调用前模式。结果accuracy为0—1、loss为每张交叉熵平均、count为样本数；per_class含标签/数量/正确数量/准确率；confusion为8×8计数，行真实列预测；predictions、true_labels、error_indices为整数列表；scores为 <code>[N,8]</code> softmax分数列表；dataset为来源元信息。输出分数不构成正确性保证。</p>
+<pre><code class="language-python">evaluation = evaluate_model(model, val_data)
+print(evaluation[&quot;accuracy&quot;], evaluation[&quot;confusion&quot;])
+</code></pre>
+<p>可修改评价batch大小以适配内存，不改变样本；每个挑战分别调用，应按类型分别解释结果。自建DatasetBundle须遵守形状、范围、标签和来源记录。</p>
+<h3>preprocess_image</h3>
+<p><code>preprocess_image(image: str | Path | PIL.Image | np.ndarray, mode=&quot;drawing&quot;, polarity=&quot;auto&quot;, crop=None, threshold=40, fit_size=26) -&gt; dict</code></p>
+<p>数组必须uint8、0—255，shape <code>[H,W]</code>、<code>[H,W,3]</code>或<code>[H,W,4]</code>；路径支持Pillow可读图片。优先PNG/JPEG。修正EXIF方向；RGBA合成白底；可crop=(左,上,右,下)像素，右下不含；转灰度，photo模式做1%自动对比度和3×3中值滤波；依据边缘中位数估计背景，转亮线黑底；用&gt;threshold的墨迹找边界；最长边缩到fit_size，等比例居中到28×28。未找到线条报错。</p>
+<p>返回original为合成背景后的RGB原图（裁剪前）、processed为28×28 PIL灰度图、tensor为float32 <code>[1,1,28,28]</code>、info为实际mode/方向/crop/墨迹框/阈值/fit_size/版本。threshold为0—254、fit_size为8—28。阈值仅用于找墨迹框，不将所有灰度二值化。polarity的dark表示深色墨迹、light表示亮色墨迹，auto可能判断错，应看模型所见图。</p>
+<pre><code class="language-python">p = preprocess_image(&quot;my_images/doodle.png&quot;, mode=&quot;drawing&quot;)
+p = preprocess_image(&quot;my_images/photo.jpg&quot;, mode=&quot;photo&quot;,
+                     crop=(100,100,500,500), polarity=&quot;dark&quot;)
+</code></pre>
+<p>照片需白纸深笔、单图、正拍、均匀光照；没有透视矫正或通用阴影消除，不承诺任意照片。更改处理方式应记录版本、参数和用途。提供的Quick Draw训练图不会经过这套外部裁剪函数。</p>
+<h3>predict_image</h3>
+<p><code>predict_image(model, image, labels=None, top_k=3, **preprocess_options) -&gt; dict</code></p>
+<p>image可以是上面接受的图片类型或preprocess_image结果字典。新建模型须传labels=train_data.labels；加载模型默认用保存的标签/阈值/fit_size。返回top（最多8个类别字典及score）、scores（8分数）、prepared（含原图、28×28图、tensor与处理信息）和notice。默认取前三类，0&lt;top_k&lt;=8。</p>
+<pre><code class="language-python">prediction = predict_image(model, &quot;my_images/doodle.png&quot;, labels=train_data.labels)
+from doodlelab import show_prediction
+show_prediction(prediction)
+</code></pre>
+<p>仅识别八类，类别外输入也被迫分到八类；高分不是保证。外部图片改过阈值时，将<code>prepared[&quot;info&quot;]</code>中的处理设置与预测一起记录，避免只保留最终类别。</p>
+<h3>save_experiment</h3>
+<p><code>save_experiment(output_dir: str | Path, model, result: dict, evaluations: dict | None=None) -&gt; Path</code></p>
+<p>result来自train_model，evaluations是名称到evaluate_model结果的映射。拒绝覆盖已有目录。默认只写model.pt与实验记录.txt；权重内包含结构配置、标签、预处理、逐轮指标和必要评价摘要。文字记录包含设置、逐轮结果、类别表现、混淆及少量错误，适合直接发给AI，不保存逐图分数JSON/CSV。工作台另外保存一张小训练曲线；自定义模型另留source/doodlelab/custom_model.py。</p>
+<pre><code class="language-python">folder = save_experiment(&quot;runs/lr_study_reference&quot;, model, result,
+                         {&quot;val_basic&quot;: evaluation})
+</code></pre>
+<p>保存最后一轮，不保存优化器状态，不提供原地断点续训。保存时应使用本次模型对应的训练结果；使用工作台<code>lab.predict(...)</code>时，处理参数和前三项结果会追加到当前实验TXT；直接调用底层<code>predict_image(...)</code>仅返回结果，需自行记录。用于报告的图片由本组另行保留。</p>
+<h3>load_model</h3>
+<p><code>load_model(path: str | Path) -&gt; (model: nn.Module, metadata: dict)</code></p>
+<p>path是实验目录或model.pt。使用weights_only=True和map_location=cpu读取，按配置重建模型并切换为eval。metadata为权重内的训练设置与结果记录。仍可读取旧版experiment.json目录；旧版目录沿用原有权重校验。模型来源应为本组或课程材料。</p>
+<pre><code class="language-python">restored, metadata = load_model(&quot;runs/lr_study_reference&quot;)
+again = evaluate_model(restored, val_data)
+prediction = predict_image(restored, &quot;my_images/doodle.png&quot;)
+</code></pre>
+<p>在同一CPU环境加载后应复现相同预测，Notebook比较全部验证分数最大差异。软件版本或平台不同可能带来差异，请结合实际运行结果解释。自定义网络必须同时提交源码与config；若custom_model.py已改动，恢复实验source/doodlelab中的相应文件并重启内核再加载旧模型。</p>
+<h3>配置修改表</h3>
+<table>
+<thead>
+<tr>
+  <th>项</th>
+  <th>默认</th>
+  <th>范围或作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>model</td>
+  <td>mlp</td>
+  <td>mlp/cnn/custom；需重建网络</td>
+</tr>
+<tr>
+  <td>custom_params</td>
+  <td>{}</td>
+  <td>JSON可保存字典，由custom_model.py解释</td>
+</tr>
+<tr>
+  <td>hidden_sizes</td>
+  <td>[64,32]</td>
+  <td>MLP正整数列表；建议小模型起步</td>
+</tr>
+<tr>
+  <td>channels</td>
+  <td>[8,16]</td>
+  <td>CNN两个正整数通道数</td>
+</tr>
+<tr>
+  <td>lr</td>
+  <td>0.001</td>
+  <td>有限正数，过大可能不稳定</td>
+</tr>
+<tr>
+  <td>epochs</td>
+  <td>12</td>
+  <td>正整数；更多轮并不必然更好</td>
+</tr>
+<tr>
+  <td>batch_size</td>
+  <td>64</td>
+  <td>正整数，影响更新与内存</td>
+</tr>
+<tr>
+  <td>dropout</td>
+  <td>0.0</td>
+  <td>0≤值&lt;1，训练时随机丢弃部分隐藏激活</td>
+</tr>
+<tr>
+  <td>weight_decay</td>
+  <td>0.0</td>
+  <td>≥0，Adam权重衰减</td>
+</tr>
+<tr>
+  <td>seed</td>
+  <td>20261008</td>
+  <td>0—2³²−1整数，控制初始化、打乱和增强</td>
+</tr>
+<tr>
+  <td>threads</td>
+  <td>2</td>
+  <td>正整数，PyTorch CPU线程数</td>
+</tr>
+<tr>
+  <td>device</td>
+  <td>cpu</td>
+  <td>教学代码固定cpu；进阶设备另改代码并注明</td>
+</tr>
+<tr>
+  <td>train_split</td>
+  <td>train_basic</td>
+  <td>train_basic/train_extended</td>
+</tr>
+<tr>
+  <td>augment_shift</td>
+  <td>0</td>
+  <td>0—3整数，训练批次随机二维偏移，越界裁掉、补0</td>
+</tr>
+</tbody>
+</table>
+<p>图表函数show_samples、plot_history、plot_confusion、show_errors、show_prediction返回Matplotlib Figure（无错误时show_errors返回None）；可 <code>.savefig(...)</code>。详细默认行为见plots.py短函数，修改图表不会改评价数据。</p>
+</section></details><section id="source"><h2>来源与许可</h2>
+<p>数据由Google, Inc.与Quick, Draw!贡献者提供，采用CC BY 4.0；来源链接和许可见上方数据介绍及<code>资源/data/manifest.json</code>。再分发数据时，应保留署名、来源和抽样、变换说明。</p>
+<p>Notebook、核心程序与离线画板的许可见<code>LICENSE_CODE.txt</code>。随包图片仅用于操作示范：合成纸面图和自动绘制的画板样例均不代表实际采集的手绘或拍照评价数据。</p></section><script>
+// 选中当前代码块，由读者使用系统快捷键复制；无需剪贴板权限或外网。
+document.querySelectorAll('pre > code').forEach(code=>{
+ const button=document.createElement('button');button.type='button';button.className='copy-code';button.textContent='选中代码';
+ button.addEventListener('click',()=>{
+  const range=document.createRange();range.selectNodeContents(code);
+  const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);
+ });code.parentNode.appendChild(button);
+});
+</script></body></html>

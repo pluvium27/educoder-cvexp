@@ -1,0 +1,9 @@
+# 先按使用说明.html#run安装平台对应的CPU torch 2.7.0，再安装本文件。
+# 不含Python安装器或离线wheel仓库。ipykernel/notebook是交互入口依赖。
+numpy==1.26.4
+Pillow==10.4.0
+matplotlib==3.9.2
+notebook==7.5.7
+ipykernel>=6,<8
+ipywidgets==8.1.7
+jupyterlab_widgets==3.0.15

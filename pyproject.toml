@@ -1,0 +1,53 @@
+[project]
+name = "doodlelab"
+version = "0.3.0"
+description = "AI你画我猜：28×28 涂鸦识别实验工具链（CPU / 命令行）"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=2.1",
+    "matplotlib>=3.9",
+    "pillow>=10.4",
+    "torch>=2.7,<3",
+]
+
+[project.scripts]
+doodlelab = "doodlelab.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.8",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/doodlelab"]
+
+[tool.uv]
+package = true
+
+# torch 只从 CPU 轮子源取：不再顺带拉进 nvidia-* 那 3GB。
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "tuna"
+url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
+default = true
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

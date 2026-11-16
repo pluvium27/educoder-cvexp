@@ -1,0 +1,133 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI你画我猜 · 作业说明</title><style>body{font:17px/1.8 system-ui,-apple-system,"Microsoft YaHei",sans-serif;color:#23374a;background:#fafcfd;max-width:1050px;margin:35px auto;padding:0 25px}h1{font-size:30px;line-height:1.4}h2{margin-top:35px;scroll-margin-top:20px}table{border-collapse:collapse;display:block;overflow-x:auto;font-size:15px}td,th{border:1px solid #cbd8df;padding:8px 12px;text-align:left}th{background:#edf4f7}pre{background:#edf3f6;padding:16px;overflow:auto;line-height:1.55}a{color:#12688f}code{font-size:90%}nav{padding:14px 18px;background:#eaf4f8;border-radius:10px}details{padding:12px 16px;background:white;border:1px solid #d9e4eb;border-radius:8px;margin:18px 0}summary{cursor:pointer;font-weight:600}img{max-width:100%}.note{padding:13px 18px;border-left:4px solid #31849e;background:#eef7fa}footer{font-size:14px;color:#607080;margin-top:40px} .route{background:#edf7f1;border-left:4px solid #3c8763;padding:12px 18px}section{margin-bottom:26px}h1{margin-bottom:16px}details summary{padding:3px 0}nav a{display:inline-block;margin:3px 4px}.subtitle{color:#526b7c}.entry-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.entry-nav .entry-title{font-weight:600;margin:0}.entry-nav p{font-size:14px;line-height:1.6;margin:6px 0 0;color:#526b7c}@media(max-width:650px){.entry-nav{grid-template-columns:1fr;gap:12px}}.breadcrumb{font-size:15px;color:#526b7c}.page-nav{display:flex;gap:24px;align-items:center}.page-nav [aria-current="page"]{font-weight:700;color:#23374a;text-decoration:none}.toc{margin:22px 0;padding:14px 18px;border:1px solid #d9e4eb;border-radius:8px;background:white}.toc p{font-size:14px;color:#607080;margin:0 0 5px}.toc a{display:inline-block;margin:3px 15px 3px 0}h3{font-size:23px;margin-top:30px;scroll-margin-top:18px}h4{font-size:18px;margin-top:22px}.guide-entry{padding:14px 18px;background:#eef7fa;border-left:4px solid #31849e}.guide-entry p{margin:5px 0}</style></head><body><h1>AI你画我猜</h1><p>人工智能通识课 · 3—4人小组大作业</p><nav class="page-nav" aria-label="页面导航"><a href="开始.html" aria-current="page">作业说明</a><a href="资源/使用说明.html">实验指南</a></nav><p class="route">学习流程：阅读作业说明 → 依据实验指南配置环境、完成Notebook实验 → 按本页要求撰写报告并提交。</p><div class="toc"><p>本页目录 · 作业要求</p><a href="#practice">实践任务</a><a href="#report_requirements">实验报告与模板</a><a href="#format">格式要求</a><a href="#submission">提交要求</a><a href="#grading">评分细则</a><a href="#ethics">学术规范</a></div><main><h2 id="task">作业要求</h2>
+<h3 id="background">1.1 作业背景</h3>
+<p>本实践以“AI你画我猜”为主题，使用公开涂鸦数据训练图像识别模型。通过模型训练、结果分析、简单调参和对照研究，理解深度学习模型如何从样本中学习、如何评价识别表现，以及数据与预处理对结果的影响。</p>
+<p>每组3—4人，使用普通电脑CPU即可完成基础任务。训练流程已封装为函数和操作面板，无需先掌握完整训练代码。允许使用AI辅助编程、实验设计、结果解释和报告写作；小组应核查关键建议，并依据真实实验形成研究结论。<strong>本作业以小组实验报告为主要评分材料。</strong></p>
+<h3 id="practice">1.2 实践任务</h3>
+<ol>
+<li><strong>完成初始实验。</strong> 按Notebook第1—5部分运行默认MLP，查看训练与验证曲线、各类别表现和错误样例，并使用自绘图片进行识别。</li>
+<li><strong>开展对照研究。</strong> 提出一个具体问题，在第6部分至少完成一次有目的的改动实验。初始实验可作为参照，报告须说明预期、修改条件和固定条件。</li>
+<li><strong>分析结果。</strong> 用曲线、指标和典型样例解释差异。结果未改善或差异不明显时，应说明可能原因与证据局限。</li>
+<li><strong>核查与讨论。</strong> 记录至少一条影响实验设计或结论的关键AI建议，说明核查方法与实际结果；记录一次实质性小组讨论、成员贡献及个人反思。</li>
+</ol>
+<p>基础研究可选择学习率、训练轮数、网络大小等，自主确定合理研究问题。CNN、扩展训练、正则化、挑战评价、照片预处理和自定义模型均为可选方向，各路线适用相同评分标准。基础研究路线可获得满分，复杂模型、更多算力或更高准确率不自动加分。</p>
+<h3 id="report_requirements">1.3 实验报告</h3>
+<p>使用随包的<code>报告模板.docx</code>填写一份小组报告，按以下顺序组织。各部分应完整呈现，缺项影响对应评分。</p>
+<p><strong>（一）标题与基本信息</strong></p>
+<p>填写报告题目、小组编号、成员姓名与学号、日期。题目可体现本组研究问题。</p>
+<p><strong>（二）研究问题与预期</strong></p>
+<p>说明研究内容、选题理由和运行前的预期。问题应具体，能够通过本组实验进行检验。</p>
+<p><strong>（三）实验设置与对照设计</strong></p>
+<p>说明使用的模型、训练资料、主要参数和操作过程；列出参照与改动实验，注明修改条件与固定条件。完整参数可查阅实验TXT，正文保留与研究问题有关的信息。</p>
+<p><strong>（四）实验结果与分析</strong></p>
+<p>展示真实运行结果，选取少量关键曲线、类别指标或错误样例。每幅图均应有图题，并说明观察到的现象、支持的判断与可能的其他解释。分析至少两个类别，或结合典型错误说明模型的识别特点。截图与指标不能替代文字分析。</p>
+<p><strong>（五）关键AI互动与核查</strong></p>
+<p>至少保留一条关键互动：AI工具、关键输入、建议摘要、采用或修改的内容、核查方法、实际结果。可使用清晰截图或准确摘录，正文仅呈现与研究有关的内容，无需提交完整聊天记录。评价依据核查质量，不按互动次数评分。</p>
+<p><strong>（六）小组讨论与成员贡献</strong></p>
+<p>记录讨论议题、不同观点或方案、验证过程和决策理由。观点一致时如实说明。每名成员填写实际承担的工作及简短反思，体现真实协作过程。</p>
+<p><strong>（七）实验总结与局限</strong></p>
+<p>回答最初研究问题，说明对模型训练、基础调参、结果评价和AI建议核查的理解，分析结论适用条件、证据不足之处及后续验证方向。</p>
+<p>报告应独立呈现上述过程与分析，实验附件作为补充。正文建议2—4页，可据研究内容合理调整，不按页数评分。</p>
+<details id="report"><summary>Word报告模板预览与下载</summary><p><a href="报告模板.docx">打开或下载Word报告模板（.docx）</a>。下方预览仅用于查看填写结构，正式报告请使用Word模板。</p><p>1 AI你画我猜实验报告</p><p>小组编号：〔填写〕    成员姓名及学号：〔填写〕</p><p>报告日期：〔填写〕    研究题目：〔填写具体研究问题〕</p><p>填写说明：以本组真实实验替换提示，保留关键证据与分析。</p><h4>1.1 研究问题与预期</h4><p>〔填写具体研究问题、选题理由与运行前预期。〕</p><h4>1.2 实验设置与对照设计</h4><p>〔说明参照与改动的设置、操作过程及固定条件。〕</p><table><tr><td>实验名称</td><td>主要设置或改动</td><td>验证准确率</td><td>训练耗时</td></tr><tr><td>参照</td><td>〔填写〕</td><td>〔填写〕</td><td>〔填写〕</td></tr><tr><td>改动</td><td>〔填写〕</td><td>〔填写〕</td><td>〔填写〕</td></tr></table><p>共同条件：〔填写实际保持相同的数据与参数。〕</p><h4>1.3 实验结果与分析</h4><p>〔比较曲线、类别表现和典型错误，解释与预期的关系。〕</p><p>〔在此插入关键曲线或错误样例图〕</p><p>图1-1 关键实验结果</p><p>〔结合图1-1说明现象、证据与可能解释。〕</p><h4>1.4 关键AI互动与核查</h4><p>〔记录AI工具、关键输入、建议摘要及本组处理理由。〕</p><p>关键输入：〔填写〕    AI建议或判断：〔填写〕</p><p>核查方法与实际结果：〔填写〕</p><h4>1.5 小组讨论与成员贡献</h4><p>〔填写一次讨论的议题、观点、验证过程与决策理由。〕</p><table><tr><td>成员姓名学号</td><td>实际工作与相关证据</td><td>个人反思与改进</td></tr><tr><td>〔填写〕</td><td>〔填写〕</td><td>〔填写〕</td></tr><tr><td>〔填写〕</td><td>〔填写〕</td><td>〔填写〕</td></tr><tr><td>〔填写〕</td><td>〔填写〕</td><td>〔填写〕</td></tr><tr><td>〔填写〕</td><td>〔填写〕</td><td>〔填写〕</td></tr></table><p>〔三人小组可删除末行；各成员填写实际贡献与反思。〕</p><h4>1.6 实验总结与局限</h4><p>〔回答研究问题，说明实践收获、结论边界与证据局限。〕</p><p>〔结合实际研究说明后续验证与改进方向。〕</p></details>
+<h3 id="format">1.4 统一格式要求</h3>
+<p>报告以Word文档（<code>.docx</code>）提交，使用随包模板。模板内的提示应替换为本组内容；报告正文不能由整页截图、手写照片或实验日志替代。</p>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>字体与字号</th>
+<th>段落格式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一级标题</td>
+<td>中文黑体，西文Times New Roman，二号（22磅）</td>
+<td>大纲1级，居中，无缩进；题序与标题空一格，标题后空一行</td>
+</tr>
+<tr>
+<td>二级标题</td>
+<td>中文黑体，西文Times New Roman，三号（16磅）</td>
+<td>大纲2级，两端对齐，无缩进；题序与标题空一格</td>
+</tr>
+<tr>
+<td>正文</td>
+<td>中文宋体，西文Times New Roman，小四（12磅）</td>
+<td>正文文本，两端对齐，首行缩进2字符</td>
+</tr>
+<tr>
+<td>图标题</td>
+<td>中文宋体，西文Times New Roman，五号（10.5磅）</td>
+<td>居中，无缩进；图号与图名空一格，图与正文之间空一行</td>
+</tr>
+<tr>
+<td>页眉</td>
+<td>宋体，小五（9磅）</td>
+<td>填写成员学号姓名，右对齐</td>
+</tr>
+<tr>
+<td>页脚</td>
+<td>宋体，小五（9磅）</td>
+<td>插入页码，居中</td>
+</tr>
+</tbody>
+</table>
+<p>上述段落均为段前0行、段后0行、1.5倍行距。页眉中填写本组成员信息；较长时可分行。页码使用模板已有的自动页码，不手工逐页输入。</p>
+<h3 id="submission">1.5 提交要求</h3>
+<p><strong>主文件：</strong> <code>小组编号_你画我猜报告.docx</code>。报告为主要评分依据，应完整呈现关键设置、真实结果与本组分析。报告末尾附件：应包括实验的具体步骤，包含选定的参照与改动实验的TXT、模型及本组程序，用于补充核查。</p>
+
+<p>提交前检查：报告已填写，结构与格式完整；参照与改动记录齐全，指标与附件一致；包含AI核查、小组讨论和各成员贡献。截止时间与提交平台以教师通知为准。</p>
+<h3 id="grading">1.6 评分细则</h3>
+<table>
+<thead>
+<tr>
+<th>评分项目</th>
+<th style="text-align: right;">分值</th>
+<th>主要依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>研究问题与设计</td>
+<td style="text-align: right;">20</td>
+<td>问题具体，对照有目的，修改与固定条件明确</td>
+</tr>
+<tr>
+<td>实验记录与证据</td>
+<td style="text-align: right;">15</td>
+<td>设置与结果真实，对应清楚，关键图表可辨认</td>
+</tr>
+<tr>
+<td>结果分析</td>
+<td style="text-align: right;">25</td>
+<td>结合曲线、类别或错误样例解释结果，区分观察与推测</td>
+</tr>
+<tr>
+<td>AI建议核查</td>
+<td style="text-align: right;">15</td>
+<td>关键互动记录清楚，具有实际核查过程与证据</td>
+</tr>
+<tr>
+<td>协作与反思</td>
+<td style="text-align: right;">15</td>
+<td>讨论具体，贡献真实，个人反思体现学习过程</td>
+</tr>
+<tr>
+<td>表达与局限</td>
+<td style="text-align: right;">10</td>
+<td>报告结构、格式与语言规范，结论边界明确</td>
+</tr>
+</tbody>
+</table>
+<p>满分100分，准确率不设达标线，不设排行榜。结果未提高时，可通过合理设计、充分分析与诚实说明取得相应分数。</p>
+<h3 id="ethics">1.7 数据与学术规范</h3>
+<p>数据标签固定为猫、兔子、鸟、鱼、苹果、香蕉、蛋糕、甜甜圈。训练、基础验证与挑战来源按课程划分使用；验证数据及其变换不得加入训练。验证集可公开分析和用于调参，反复调参后的成绩不应称为独立测试成绩。</p>
+<p>挑战中的偏移、加粗和遮挡为合成处理，不代表真实照片。使用自绘图片改进方法时，应另取一批图片评价改进。模型只识别八类，输出分数不构成正确性保证。</p>
+<p>报告、实验记录、AI互动与成员贡献均须真实。不得抄袭、伪造结果或以未核查的AI生成内容替代本组研究。使用AI整理文字时，小组仍须核对内容并形成自己的分析。</p>
+<h3 id="records">1.8 运行与记录说明</h3>
+<p>环境安装、数据来源与调用方法见<a href="资源/使用说明.html">实验指南</a>。每次训练自动生成<code>实验记录.txt</code>；比较功能生成<code>实验汇总.txt</code>。可将这些文字连同研究问题提供给AI，要求核对变化的条件、分析证据并提出可执行的核查方法。模型权重和公共数据不作为文字对话的必要输入。</p></main><details><summary>文件夹使用说明</summary><pre>AI你画我猜/
+  开始.html           作业说明与实验指南入口
+  AI你画我猜.ipynb    在Jupyter中打开，完成实验
+  报告模板.docx       使用Word填写报告
+  画板.html           绘制图案并导出PNG
+  my_images/          放置自己的图片
+  资源/               数据、程序、实验指南与安装清单</pre><p>从开始页进入实验指南即可完成环境配置，无需逐个打开资源文件。请完整保留“资源”文件夹，程序会自动加载课程数据与模块。需要研究自定义模型时，可按Notebook选读C进入源码。</p><p>运行后自动生成<code>runs/</code>实验记录和<code>提交材料/</code>报告草稿与附件目录；提交范围见本页提交要求。</p></details><footer>学生版 v1.6.1 · 数据 qd8-bitmap-v1.0 · 2026-10-12</footer></body></html>

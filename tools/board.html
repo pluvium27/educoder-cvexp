@@ -1,0 +1,32 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI你画我猜 · 离线画板</title>
+<style>
+*{box-sizing:border-box}body{font:17px/1.65 system-ui,sans-serif;color:#203247;background:#edf3f7;margin:0}main{max-width:1000px;margin:35px auto;padding:24px;background:white;border-radius:16px}h1{font-size:29px;margin:0 0 8px}p{margin:8px 0}section{display:grid;grid-template-columns:minmax(280px,520px) minmax(240px,1fr);gap:26px;margin-top:22px}canvas{display:block;width:100%;aspect-ratio:1;background:white;border:2px solid #839bb0;border-radius:8px;touch-action:none}button,select,input{font:inherit}button{border:0;padding:9px 15px;margin:7px 7px 7px 0;border-radius:7px;background:#1c6489;color:white;cursor:pointer}button.secondary{background:#516476}label{display:block;margin:12px 0}.note{font-size:15px;color:#52667a}#status{background:#eff6fa;padding:10px;border-radius:7px;min-height:45px}@media(max-width:850px){main{margin:8px}section{grid-template-columns:1fr}canvas{max-width:512px}}a{color:#17618c}
+</style><main><p class="note">工具 › 离线画板</p><h1>AI你画我猜 · 离线画板</h1>
+<p>画完导出 PNG，放进项目的 <code>my_images/</code>，再在终端跑
+<code>uv run doodlelab predict &lt;实验名&gt; my_images/你的图.png</code>。</p>
+<section><div><canvas id="board" width="512" height="512" aria-label="涂鸦画布"></canvas>
+<button id="undo" class="secondary">撤销一笔</button><button id="clear" class="secondary">清空</button></div>
+<div><p><strong>模型可识别的八类</strong><br>猫、兔子、鸟、鱼、苹果、香蕉、蛋糕、甜甜圈。</p>
+<p class="note">可以画类别外物体，观察局限；模型仍会给出八类中的一个答案。页面显示的类别名称不作为标签传入模型。</p>
+<label>笔宽 <input id="width" type="range" min="3" max="22" value="9"> <span id="widthValue">9</span> 像素</label>
+<label>导出背景 <select id="background"><option value="white">白色背景</option><option value="transparent">透明背景</option></select></label>
+<button id="export">生成 PNG 图片</button><p><a id="downloadLink" hidden download="doodle.png">保存 doodle.png</a></p><p id="status" role="status">画布已准备好，不需要联网。</p>
+<p class="note">推荐：单个图案、深色线条、四周留白。图案中不应包含类别文字。导出后把图片放进 my_images/，用 doodlelab predict 识别。</p>
+<p class="note">网页只在本地处理画布，不加载外部字体/脚本，不上传图片。预测模块会处理透明背景、裁剪、缩放和居中，并展示模型实际看到的28×28图。</p>
+</div></section></main>
+<script>
+const canvas=document.getElementById('board'),ctx=canvas.getContext('2d'),status=document.getElementById('status');
+let drawing=false,previous=null,history=[];
+function point(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)*512/r.width,y:(e.clientY-r.top)*512/r.height};}
+function remember(){history.push(ctx.getImageData(0,0,512,512));if(history.length>20)history.shift();}
+function dot(p){ctx.fillStyle='#111';ctx.beginPath();ctx.arc(p.x,p.y,Number(document.getElementById('width').value)/2,0,Math.PI*2);ctx.fill();}
+canvas.addEventListener('pointerdown',e=>{if(e.button!==0)return;e.preventDefault();remember();canvas.setPointerCapture(e.pointerId);drawing=true;previous=point(e);dot(previous);status.textContent='正在绘画；完成后导出图片。';});
+canvas.addEventListener('pointermove',e=>{if(!drawing)return;const p=point(e);ctx.strokeStyle='#111';ctx.lineWidth=Number(document.getElementById('width').value);ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();ctx.moveTo(previous.x,previous.y);ctx.lineTo(p.x,p.y);ctx.stroke();previous=p;});
+function end(){drawing=false;previous=null;}
+canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);
+document.getElementById('width').addEventListener('input',e=>document.getElementById('widthValue').textContent=e.target.value);
+document.getElementById('undo').onclick=()=>{end();if(history.length){ctx.putImageData(history.pop(),0,0);status.textContent='已撤销最近一笔。';}};
+document.getElementById('clear').onclick=()=>{end();remember();ctx.clearRect(0,0,512,512);status.textContent='已清空；可以撤销。';};
+document.getElementById('export').onclick=()=>{const pixels=ctx.getImageData(0,0,512,512).data;let ink=false;for(let i=3;i<pixels.length;i+=4){if(pixels[i]>0){ink=true;break;}}if(!ink){status.textContent='画布为空，请先画图。';document.getElementById('downloadLink').hidden=true;return;}const out=document.createElement('canvas');out.width=out.height=512;const c=out.getContext('2d');if(document.getElementById('background').value==='white'){c.fillStyle='white';c.fillRect(0,0,512,512);}c.drawImage(canvas,0,0);const a=document.getElementById('downloadLink');a.href=out.toDataURL('image/png');a.hidden=false;status.textContent='PNG已生成；点击“保存 doodle.png”，再将文件复制到 my_images。';};
+</script></html>

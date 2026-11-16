@@ -1,0 +1,474 @@
+{
+  "data_version": "qd8-bitmap-v1.0",
+  "processing_version": "prepare_data-v1",
+  "seed": 20261008,
+  "labels": [
+    {
+      "id": 0,
+      "en": "cat",
+      "zh": "猫"
+    },
+    {
+      "id": 1,
+      "en": "rabbit",
+      "zh": "兔子"
+    },
+    {
+      "id": 2,
+      "en": "bird",
+      "zh": "鸟"
+    },
+    {
+      "id": 3,
+      "en": "fish",
+      "zh": "鱼"
+    },
+    {
+      "id": 4,
+      "en": "apple",
+      "zh": "苹果"
+    },
+    {
+      "id": 5,
+      "en": "banana",
+      "zh": "香蕉"
+    },
+    {
+      "id": 6,
+      "en": "cake",
+      "zh": "蛋糕"
+    },
+    {
+      "id": 7,
+      "en": "donut",
+      "zh": "甜甜圈"
+    }
+  ],
+  "splits": {
+    "train_basic": {
+      "file": "train_basic.npz",
+      "count": 2400,
+      "per_class": 300,
+      "sha256": "ece9da8c2d6d09e86dac934bbec465f604f0615a1ba7dd690ecb8dd0a1a210ac",
+      "bytes": 809463,
+      "role": "train"
+    },
+    "train_extended": {
+      "file": "train_extended.npz",
+      "count": 24000,
+      "per_class": 3000,
+      "sha256": "4caaf9a2d60723917579cfdee9c1b8eace6d9efd1155dc40c3d307769a2d7fdc",
+      "bytes": 8034085,
+      "role": "train"
+    },
+    "val_basic": {
+      "file": "val_basic.npz",
+      "count": 1600,
+      "per_class": 200,
+      "sha256": "ca8f4e697bd4f5ad08476aef501c3c797b6364d8c97209500a6205f7f1cb41db",
+      "bytes": 536604,
+      "role": "validation"
+    },
+    "challenge_original": {
+      "file": "challenge_original.npz",
+      "count": 640,
+      "per_class": 80,
+      "sha256": "08899c3ead2a7f64311def75dba6417a8ac100e08fb08d5cf4cc5e8e8e523a13",
+      "bytes": 216096,
+      "role": "validation"
+    },
+    "challenge_shift": {
+      "file": "challenge_shift.npz",
+      "count": 640,
+      "per_class": 80,
+      "sha256": "d2b9535a44c41c916cb1f25952f98a097fb16f404479d9d08070c8d4d3d603d2",
+      "bytes": 209654,
+      "role": "validation"
+    },
+    "challenge_thick": {
+      "file": "challenge_thick.npz",
+      "count": 640,
+      "per_class": 80,
+      "sha256": "2327d25b75935c7cdc14c19114816e17351e94a6f75ad29c002f135b194ee336",
+      "bytes": 210384,
+      "role": "validation"
+    },
+    "challenge_occlusion": {
+      "file": "challenge_occlusion.npz",
+      "count": 640,
+      "per_class": 80,
+      "sha256": "29855b095b25d4aba8cafb4b095ee6c40cee05bd63b8337e7eef083f65226812",
+      "bytes": 205317,
+      "role": "validation"
+    }
+  },
+  "preprocessing": {
+    "shape": [
+      28,
+      28
+    ],
+    "dtype": "uint8",
+    "range": [
+      0,
+      255
+    ],
+    "polarity": "bright_ink_dark_background",
+    "student_tensor": "float32 [N,1,28,28] /255; no recentering of provided bitmaps"
+  },
+  "sampling": "Per-class PCG64(seed+label), permutation of entire official npy; take first 3280 eligible globally unique bitmaps. No recognized filter: numpy files lack this field.",
+  "selection_filter": "20 <= pixels >32 <=548; max>=64; exact pixel SHA256 dedup across selected categories/splits; retain ambiguous labels",
+  "split_rule": "first 3000 train_extended; first 300 of it train_basic; next 200 val_basic; next 80 challenge sources; challenges share same held-out parents",
+  "challenge_definitions": {
+    "challenge_original": "independent held-out drawings, same distribution; paired reference, not inherently harder",
+    "challenge_shift": "synthetic +3 pixels right, +2 down, zero fill, clipped border",
+    "challenge_thick": "synthetic 3x3 max filter, bright strokes dilated",
+    "challenge_occlusion": "synthetic fixed 8x5 black patch: x=[10,18),y=[12,17)"
+  },
+  "license": "CC BY 4.0; Google, Inc.; Quick, Draw! contributors",
+  "sources": [
+    {
+      "category": "cat",
+      "url": "https://storage.googleapis.com/quickdraw_dataset/full/numpy_bitmap/cat.npy",
+      "file": "cat.npy",
+      "bytes": 96590448,
+      "sha256": "21a281839d3f2eef601d57d2338a4eafdf24649f8d0a0e42d3ec3e595911463e",
+      "retrieved_utc": "2026-10-08T01:52:22Z",
+      "elapsed_seconds": 35.25,
+      "headers": {
+        "Content-Type": "application/octet-stream",
+        "X-GUploader-UploadID": "AP6rU83VhZ3rRx5XsI42AatiYoiHbwvVVxBGgC_kHEPk_SMSON1l7YEPqVK0je3WCigK6Ls",
+        "Expires": "Thu, 08 Oct 2026 02:51:48 GMT",
+        "Date": "Thu, 08 Oct 2026 01:51:48 GMT",
+        "Cache-Control": "public, max-age=3600",
+        "Last-Modified": "Thu, 18 May 2017 05:28:37 GMT",
+        "ETag": "\"e4bb2f2c14813c33b9bcc21e06eacb43\"",
+        "x-goog-generation": "1495085317747184",
+        "x-goog-metageneration": "1",
+        "x-goog-stored-content-encoding": "identity",
+        "x-goog-stored-content-length": "96590448",
+        "x-goog-meta-goog-reserved-file-mtime": "1495085069",
+        "Content-Language": "en",
+        "x-goog-hash": "crc32c=WSN2Eg==",
+        "x-goog-storage-class": "MULTI_REGIONAL",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "96590448",
+        "Server": "UploadServer",
+        "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "Connection": "close"
+      },
+      "shape": [
+        123202,
+        784
+      ],
+      "dtype": "uint8"
+    },
+    {
+      "category": "rabbit",
+      "url": "https://storage.googleapis.com/quickdraw_dataset/full/numpy_bitmap/rabbit.npy",
+      "file": "rabbit.npy",
+      "bytes": 121745872,
+      "sha256": "a2c887574096b9a8bba693822a2ba3cb713db6b5c29e565bc1230109b6bbbd60",
+      "retrieved_utc": "2026-10-08T01:52:36Z",
+      "elapsed_seconds": 49.25,
+      "headers": {
+        "Content-Type": "application/octet-stream",
+        "X-GUploader-UploadID": "AP6rU826UCdsZC0kGGn1sCWLhV4cmj3P3nOOkcRCjQgQ0eqiTgpddTtEVxRpHuIXSMu0BO5s87gCWWQ",
+        "Expires": "Thu, 08 Oct 2026 02:51:48 GMT",
+        "Date": "Thu, 08 Oct 2026 01:51:48 GMT",
+        "Cache-Control": "public, max-age=3600",
+        "Last-Modified": "Thu, 18 May 2017 05:29:59 GMT",
+        "ETag": "\"6f215270222417ece49e1a142e2579b8\"",
+        "x-goog-generation": "1495085399423478",
+        "x-goog-metageneration": "1",
+        "x-goog-stored-content-encoding": "identity",
+        "x-goog-stored-content-length": "121745872",
+        "x-goog-meta-goog-reserved-file-mtime": "1495085124",
+        "Content-Language": "en",
+        "x-goog-hash": "crc32c=5eLtKg==",
+        "x-goog-storage-class": "MULTI_REGIONAL",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "121745872",
+        "Server": "UploadServer",
+        "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "Connection": "close"
+      },
+      "shape": [
+        155288,
+        784
+      ],
+      "dtype": "uint8"
+    },
+    {
+      "category": "bird",
+      "url": "https://storage.googleapis.com/quickdraw_dataset/full/numpy_bitmap/bird.npy",
+      "file": "bird.npy",
+      "bytes": 104720528,
+      "sha256": "48a6e2a7dc4b4d97aec4201536016cfa5dd1881620626ebda165c77b69f681e5",
+      "retrieved_utc": "2026-10-08T01:52:27Z",
+      "elapsed_seconds": 40.87,
+      "headers": {
+        "Content-Type": "application/octet-stream",
+        "X-GUploader-UploadID": "AP6rU81ZdLYtN4S8vooiFQzB_izcICBjWwwAIaCVuMRRYxaJfOv2v3mK2ISSYSG-9hM5nfD1eRYw7Y4",
+        "Expires": "Thu, 08 Oct 2026 02:51:48 GMT",
+        "Date": "Thu, 08 Oct 2026 01:51:48 GMT",
+        "Cache-Control": "public, max-age=3600",
+        "Last-Modified": "Thu, 18 May 2017 05:28:20 GMT",
+        "ETag": "\"79f6939ac7c93ab930a7e30a153df710\"",
+        "x-goog-generation": "1495085300993256",
+        "x-goog-metageneration": "1",
+        "x-goog-stored-content-encoding": "identity",
+        "x-goog-stored-content-length": "104720528",
+        "x-goog-meta-goog-reserved-file-mtime": "1495085067",
+        "Content-Language": "en",
+        "x-goog-hash": "crc32c=z3SEUA==",
+        "x-goog-storage-class": "MULTI_REGIONAL",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "104720528",
+        "Server": "UploadServer",
+        "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "Connection": "close"
+      },
+      "shape": [
+        133572,
+        784
+      ],
+      "dtype": "uint8"
+    },
+    {
+      "category": "fish",
+      "url": "https://storage.googleapis.com/quickdraw_dataset/full/numpy_bitmap/fish.npy",
+      "file": "fish.npy",
+      "bytes": 105173680,
+      "sha256": "7ed4f4ce04546a0935149780c73fdd3c376d121e7df5ac1307586a78769e5fc9",
+      "retrieved_utc": "2026-10-08T01:53:07Z",
+      "elapsed_seconds": 45.79,
+      "headers": {
+        "Content-Type": "application/octet-stream",
+        "X-GUploader-UploadID": "AP6rU80XtqtL8Qr_M1PjV9pJO0IZqGNiM8NRAQkbzEO58xF4fdo1MknNiUnb9JazliSRRAc",
+        "Expires": "Thu, 08 Oct 2026 02:52:23 GMT",
+        "Date": "Thu, 08 Oct 2026 01:52:23 GMT",
+        "Cache-Control": "public, max-age=3600",
+        "Last-Modified": "Thu, 18 May 2017 05:29:03 GMT",
+        "ETag": "\"b56fa4f8520be853900d4110b752051a\"",
+        "x-goog-generation": "1495085343572657",
+        "x-goog-metageneration": "1",
+        "x-goog-stored-content-encoding": "identity",
+        "x-goog-stored-content-length": "105173680",
+        "x-goog-meta-goog-reserved-file-mtime": "1495085086",
+        "Content-Language": "en",
+        "x-goog-hash": "crc32c=AhLZEg==",
+        "x-goog-storage-class": "MULTI_REGIONAL",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "105173680",
+        "Server": "UploadServer",
+        "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "Connection": "close"
+      },
+      "shape": [
+        134150,
+        784
+      ],
+      "dtype": "uint8"
+    },
+    {
+      "category": "apple",
+      "url": "https://storage.googleapis.com/quickdraw_dataset/full/numpy_bitmap/apple.npy",
+      "file": "apple.npy",
+      "bytes": 113462128,
+      "sha256": "a70df0030c146cfe4aa9a17aa2a320d5f64ac166fdc3d2cfb439b8322fd8bb0d",
+      "retrieved_utc": "2026-10-08T02:01:35Z",
+      "elapsed_seconds": null,
+      "headers": {
+        "content-length": "113462128",
+        "retry": "curl official URL query cache bypass"
+      },
+      "retry_url": "https://storage.googleapis.com/quickdraw_dataset/full/numpy_bitmap/apple.npy?course_verify=20261008",
+      "retry_reason": "initial file truncated by 20344 bytes; npy length mismatch",
+      "shape": [
+        144722,
+        784
+      ],
+      "dtype": "uint8"
+    },
+    {
+      "category": "banana",
+      "url": "https://storage.googleapis.com/quickdraw_dataset/full/numpy_bitmap/banana.npy",
+      "file": "banana.npy",
+      "bytes": 241421904,
+      "sha256": "d67e4bbc7a2e51774a1c1d1960e3406ec2ed2946637db3ef8f9ca5dd0d0ae90d",
+      "retrieved_utc": "2026-10-08T01:54:04Z",
+      "elapsed_seconds": 88.63,
+      "headers": {
+        "Content-Type": "application/octet-stream",
+        "X-GUploader-UploadID": "AP6rU83RSRyXptRKNq3pFEAfWwMg2YoCSj0Pa3lz0txb4awOTgiXBmv9XbtUdRLi4tFjXoHOQJoHmPA",
+        "Expires": "Thu, 08 Oct 2026 02:52:37 GMT",
+        "Date": "Thu, 08 Oct 2026 01:52:37 GMT",
+        "Cache-Control": "public, max-age=3600",
+        "Last-Modified": "Thu, 18 May 2017 05:28:12 GMT",
+        "ETag": "\"648e24982d62b7ed14fdac202b7a8110\"",
+        "x-goog-generation": "1495085292664340",
+        "x-goog-metageneration": "1",
+        "x-goog-stored-content-encoding": "identity",
+        "x-goog-stored-content-length": "241421904",
+        "x-goog-meta-goog-reserved-file-mtime": "1495085069",
+        "Content-Language": "en",
+        "x-goog-hash": "crc32c=FS3uIg==",
+        "x-goog-storage-class": "MULTI_REGIONAL",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "241421904",
+        "Server": "UploadServer",
+        "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "Connection": "close"
+      },
+      "shape": [
+        307936,
+        784
+      ],
+      "dtype": "uint8"
+    },
+    {
+      "category": "cake",
+      "url": "https://storage.googleapis.com/quickdraw_dataset/full/numpy_bitmap/cake.npy",
+      "file": "cake.npy",
+      "bytes": 97925600,
+      "sha256": "5f3c3dbc481aba65587ab2054b99b4bd7e52fbb59845711c58a7eb06353ecaac",
+      "retrieved_utc": "2026-10-08T01:53:51Z",
+      "elapsed_seconds": 43.57,
+      "headers": {
+        "Content-Type": "application/octet-stream",
+        "X-GUploader-UploadID": "AP6rU83Fsq2MD9Sav46V6xeU63rD7223DyIcZqvM2Hy0MlfLnbCv07FKDH4ohhRI4qznXmOw",
+        "Expires": "Thu, 08 Oct 2026 02:53:09 GMT",
+        "Date": "Thu, 08 Oct 2026 01:53:09 GMT",
+        "Cache-Control": "public, max-age=3600",
+        "Last-Modified": "Thu, 18 May 2017 05:28:31 GMT",
+        "ETag": "\"e816ab482b45ef6302a92f4a7f20cf2c\"",
+        "x-goog-generation": "1495085311201150",
+        "x-goog-metageneration": "1",
+        "x-goog-stored-content-encoding": "identity",
+        "x-goog-stored-content-length": "97925600",
+        "x-goog-meta-goog-reserved-file-mtime": "1495085068",
+        "Content-Language": "en",
+        "x-goog-hash": "crc32c=4aoeNQ==",
+        "x-goog-storage-class": "MULTI_REGIONAL",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "97925600",
+        "Server": "UploadServer",
+        "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "Connection": "close"
+      },
+      "shape": [
+        124905,
+        784
+      ],
+      "dtype": "uint8"
+    },
+    {
+      "category": "donut",
+      "url": "https://storage.googleapis.com/quickdraw_dataset/full/numpy_bitmap/donut.npy",
+      "file": "donut.npy",
+      "bytes": 110348864,
+      "sha256": "1749d0ebb43532ea63428a9354669f22d515f4d4ddcaa8d128407369778e0b30",
+      "retrieved_utc": "2026-10-08T01:53:44Z",
+      "elapsed_seconds": 32.02,
+      "headers": {
+        "Content-Type": "application/octet-stream",
+        "X-GUploader-UploadID": "AP6rU83c2Ucj3oldrEqQI-oJ-xR95i0VUJZjyW4YqreE6RblpCg3xIp7QPOF-GzskBe45XIlI9ihUhU",
+        "Expires": "Thu, 08 Oct 2026 02:53:14 GMT",
+        "Date": "Thu, 08 Oct 2026 01:53:14 GMT",
+        "Cache-Control": "public, max-age=3600",
+        "Last-Modified": "Thu, 18 May 2017 05:28:52 GMT",
+        "ETag": "\"1f18f1321255112596c39153de14b12a\"",
+        "x-goog-generation": "1495085332273803",
+        "x-goog-metageneration": "1",
+        "x-goog-stored-content-encoding": "identity",
+        "x-goog-stored-content-length": "110348864",
+        "x-goog-meta-goog-reserved-file-mtime": "1495085084",
+        "Content-Language": "en",
+        "x-goog-hash": "crc32c=0/j25Q==",
+        "x-goog-storage-class": "MULTI_REGIONAL",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "110348864",
+        "Server": "UploadServer",
+        "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "Connection": "close"
+      },
+      "shape": [
+        140751,
+        784
+      ],
+      "dtype": "uint8"
+    }
+  ],
+  "audit": [
+    {
+      "category": "cat",
+      "total_source_rows": 123202,
+      "scanned": 3280,
+      "excluded_invalid": 0,
+      "excluded_exact_duplicates": 0,
+      "selected": 3280
+    },
+    {
+      "category": "rabbit",
+      "total_source_rows": 155288,
+      "scanned": 3280,
+      "excluded_invalid": 0,
+      "excluded_exact_duplicates": 0,
+      "selected": 3280
+    },
+    {
+      "category": "bird",
+      "total_source_rows": 133572,
+      "scanned": 3280,
+      "excluded_invalid": 0,
+      "excluded_exact_duplicates": 0,
+      "selected": 3280
+    },
+    {
+      "category": "fish",
+      "total_source_rows": 134150,
+      "scanned": 3280,
+      "excluded_invalid": 0,
+      "excluded_exact_duplicates": 0,
+      "selected": 3280
+    },
+    {
+      "category": "apple",
+      "total_source_rows": 144722,
+      "scanned": 3281,
+      "excluded_invalid": 1,
+      "excluded_exact_duplicates": 0,
+      "selected": 3280
+    },
+    {
+      "category": "banana",
+      "total_source_rows": 307936,
+      "scanned": 3280,
+      "excluded_invalid": 0,
+      "excluded_exact_duplicates": 0,
+      "selected": 3280
+    },
+    {
+      "category": "cake",
+      "total_source_rows": 124905,
+      "scanned": 3280,
+      "excluded_invalid": 0,
+      "excluded_exact_duplicates": 0,
+      "selected": 3280
+    },
+    {
+      "category": "donut",
+      "total_source_rows": 140751,
+      "scanned": 3280,
+      "excluded_invalid": 0,
+      "excluded_exact_duplicates": 0,
+      "selected": 3280
+    }
+  ],
+  "warnings": [
+    "No photographic/real hand-drawn collection in these validation splits.",
+    "Challenge versions are paired/correlated; do not pool as independent samples.",
+    "Validation is visible; repeated tuning is not an independent test.",
+    "Exact dedup does not guarantee removal of visually similar drawings."
+  ]
+}
